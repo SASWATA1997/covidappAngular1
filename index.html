@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>covid-portal</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+    crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js">    
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="java.js"></script>
+</head>
+<body ng-app="MyApp"ng-controller="MyCtrl" >
+    <div class="fluid1">
+        <h1><u>COVID-PORTAL</u></h1>
+    </div>
+    <div class="fluid">
+        <nav class="text-center">
+
+			<!-- When a link in the menu is clicked, we set the active variable -->
+
+			<a href="#" ng-click="getShow1()"class="home" >Home</a>
+			<a href="#" ng-click="getShow2()"class="report" >report</a>
+			<a href="#" ng-click="getShow3()"class="medicine" >medicine</a>
+			<a href="#" ng-click="getShow4()"class="check">check</a>
+		</nav>
+    </div>
+    
+    <div class="jumbotron" id="home" ng-if="showhome">
+        <h1 class="text-center" >home</h1>
+        {{title}}
+        <p>Portal is user-friendly. Any Grievances/requests are immediately attended and issues resolved quickly. Overwhelmed with the spontaneous response for any queries.No third party assistance required for filing returns etc.
+             as the portal is self-explanatory. ... Particularly for those like me who are seniors can sit at home and do it.
+             Also processing and getting refund is quicker.</p>
+    </div>
+        
+        <div class="jumbotron" id="report"  ng-if="showreprt">
+        <div class="report">
+            <!--alldata-->
+            <h1 class="text-center"><b>global Data</b></h1>
+            <div id="btnContainer">
+                <button class="btn" onclick="listView()"><i class="fa fa-bars"></i> List</button> 
+                <button class="btn active" onclick="gridView()"><i class="fa fa-th-large"></i> Grid</button>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div class="card">
+                        <div class="card-body bg-warning text-white ">
+                            <h3>confirmed case</h3>
+                            <h3>{{all_data.confirmed.value}}</h3>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <div class="card-body  bg-success text-white">
+                            <h3>recoverd case</h3>
+                            <h3>{{all_data.recovered.value}}</h3>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <div class="card-body bg-danger text-white">
+                            <h3>death case</h3>
+                            <h3>{{all_data.deaths.value}}</h3>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+                 <!--endalldata-->
+            <input type="text" class="form-control mt-4" 
+            placeholder="enter country" 
+            ng-model="ch"
+            ng-change="get_c_data({ch})"
+            />
+
+            <p>you have type data for: <b>{{ch}}</b></p> 
+
+            <div class="row">
+                <div class="column">
+                    <div class="card">
+                        <div class="card-body bg-warning text-white ">
+                            <h3>confirmed case</h3>
+                            <h3>{{c_data.confirmed.value}}</h3>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <div class="card-body  bg-success text-white">
+                            <h3>recoverd case</h3>
+                            <h3>{{c_data.recovered.value}}</h3>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <div class="card-body bg-danger text-white">
+                            <h3>death case</h3>
+                            <h3>{{c_data.deaths.value}}</h3>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+       
+        </div>
+
+        <div class="jumbotron" id="report"  ng-if="showmed">
+        <h1 class="text-center">med</h1>
+        <p>no update for medicine</p>
+    
+        </div>
+    <div class="jumbotron" id="report" ng-if="showcheck">
+        <h1 class="text-center">check</h1>
+        <div class="check">
+            <form>
+                <ul>
+                    <!-- Loop through the services array, assign a click handler, and set or
+                    remove the "active" css class if needed -->
+                    <li ng-repeat="service in services" ng-click="toggleActive(service)" ng-class="{active:service.active}">
+                        <!-- Notice the use of the currency filter, it will format the price -->
+                        {{service.name}} 
+                    </li>
+                </ul>
+
+			    <div class="total">
+				    <!-- Calculate the total price of all chosen services. Format it as currency. -->
+				    Total: <span>{{total() }}</span>
+                    {{msg}} {{msg1}}
+			    </div>
+
+		    </form>
+        </div>
+    </div>
+   
+    
+</body>
+<footer>
+    <span>created by Saswata Dhar<a href="#">personal portfolio</a><span class="fa fa-copyright"></span>2021 All rights reserved.</span>
+</footer>
+</html>
